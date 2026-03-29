@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<!-- SW Cache Buster: runs before anything else.
+     If an old/broken SW is registered, unregister it + clear caches + reload once.
+     The flag in sessionStorage prevents an infinite reload loop. -->
+<script src="js/safari_debug.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohamed Abouassi - Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f172a">
+    <link rel="stylesheet" href="OpenClaw_style_v6.css?v=2026.6">
+</head>
+<body style="background: var(--bg-main); color: var(--text-primary); margin:0; padding:0; min-height: 100vh; overflow-x: hidden;">
+    
+    <div style="padding: 2rem 1rem;">
+        <main style="max-width: 1300px; margin: 0 auto; width: 100%; border: none; background: transparent; box-shadow: none;">
+            <div id="portfolio-view-section" class="active">
+            <div class="section-title reveal">
+                <h2>💼 Engineering Portfolio</h2>
+                
+            </div>
+
+            <div class="bento-grid stagger-container">
+                <!-- Project 1: Mozodi (Large Hero) -->
+                <div class="bento-card bento-large reveal" data-project="mozodi" style="--stagger-idx: 0">
+                    <div class="bento-glow"></div>
+                    <div class="bento-art"><img src="assets/mozodi_1.png" alt="Mozodi Background" loading="lazy"></div>
+                    <div class="bento-content">
+                        <div class="project-header">
+                            <h3>Mozodi</h3>
+                            <span class="project-tag shop">Monorepo</span>
+                        </div>
+                        <p class="project-desc">White-label B2B architecture processing 5,400+ SKUs across multiple sub-brands dynamically.</p>
+                        
+                        <div class="bento-metrics">
+                            <div class="metric"><span class="m-val">50%</span><span class="m-lbl">Code Reuse</span></div>
+                            <div class="metric"><span class="m-val">5k+</span><span class="m-lbl">Live SKUs</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: Bravo (Tall Hero) -->
+                <div class="bento-card bento-tall reveal" data-project="bravo" style="--stagger-idx: 1">
+                    <div class="bento-glow"></div>
+                    <div class="bento-art"><img src="assets/bravo_1.png" alt="Bravo Background" loading="lazy"></div>
+                    <div class="bento-content">
+                        <div class="project-header">
+                            <h3>Bravo Pay</h3>
+                            <span class="project-tag hardware">FinTech</span>
+                        </div>
+                        <p class="project-desc">Financial orchestration SDK processing enormous volumes via a zero-trust architecture.</p>
+                        <div class="bento-metrics vertical">
+                            <div class="metric"><span class="m-val">$5M+</span><span class="m-lbl">Processed</span></div>
+                            <div class="metric"><span class="m-val">384K</span><span class="m-lbl">Wallets</span></div>
+                            <div class="metric"><span class="m-val">99.9%</span><span class="m-lbl">Uptime</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5: Madaraskom (Wide) -->
+                <div class="bento-card bento-wide reveal" data-project="madaraskom" style="--stagger-idx: 2">
+                    <div class="bento-glow"></div>
+                    <div class="bento-art"><img src="images/portfolio/madarskom/screen1.jpg" alt="Madaraskom Background" loading="lazy"></div>
+                    <div class="bento-content flex-row">
+                        <div>
+                            <div class="project-header">
+                                <h3>Madaraskom</h3>
+                                <span class="project-tag payment">EdTech Ed</span>
+                            </div>
+                            <p class="project-desc">Massive hardware-accelerated live video classrooms via Zoom SDK and AES DRM offline playback.</p>
+                        </div>
+                        <div class="bento-metrics">
+                            <div class="metric"><span class="m-val">100+</span><span class="m-lbl">Active/Class</span></div>
+                            <div class="metric"><span class="m-val">AES</span><span class="m-lbl">Encryption</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: Al Ahram (Square) -->
+                <div class="bento-card bento-square reveal" data-project="alahram" style="--stagger-idx: 3">
+                    <div class="bento-glow"></div>
+                    <div class="bento-art"><img src="assets/alahram_1.png" alt="Al Ahram Background" loading="lazy"></div>
+                    <div class="bento-content">
+                        <div class="project-header">
+                            <h3>Al-Ahram</h3>
+                            <span class="project-tag payment">Contract</span>
+                        </div>
+                        <p class="project-desc">Offline-first Drift SQLite app with dynamic RTL PDF Generation.</p>
+                        <div class="bento-metrics small">
+                            <div class="metric"><span class="m-val">DDD</span><span class="m-lbl">Riverpod</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4: card_hub (Square) -->
+                <div class="bento-card bento-square reveal" data-project="cardhub" style="--stagger-idx: 4">
+                    <div class="bento-glow"></div>
+                    <div class="bento-art"><video autoplay loop muted playsinline src="images/portfolio/card_hub.mp4" style="width: 100%; height: 100%; object-fit: cover;"></video></div>
+                    <div class="bento-content">
+                        <div class="project-header">
+                            <h3>card_hub</h3>
+                            <span class="project-tag oss">OSS Library</span>
+                        </div>
+                        <p class="project-desc">High-performance animated 3D credit card widget for Flutter.</p>
+                        <div class="bento-metrics small">
+                            <div class="metric"><span class="m-val">150+</span><span class="m-lbl">Stars</span></div>
+                            <div class="metric"><span class="m-val">98%</span><span class="m-lbl">Coverage</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /portfolio-view-section -->
+        </main>
+    </div>
+
+    <!-- Portfolio Project Inner Page Modal -->
+    <div id="portfolio-modal" class="modal-overlay hidden">
+        <div class="modal-content portfolio-modal-content">
+            <div class="modal-header">
+                <h2 id="pm-title">Project Title</h2>
+                <button class="btn-icon-only" id="btn-close-portfolio-modal"><i class="fas fa-times"></i></button>
+            </div>
+            
+            <div class="portfolio-modal-body">
+                <!-- Header Tags & Description -->
+                <div class="pm-intro">
+                    <p id="pm-desc" class="pm-desc">Description goes here...</p>
+                    <div id="pm-tags" class="pm-tags-container"></div>
+                </div>
+
+                <!-- Screenshots Gallery -->
+                <div class="pm-screenshots">
+                    <h3>gallery preview</h3>
+                    <div class="pm-gallery" id="pm-gallery">
+                        <!-- Imgs appended here -->
+                    </div>
+                </div>
+
+                <!-- Split layout Features & Achievements -->
+                <div class="pm-details-grid">
+                    <div class="pm-section" id="pm-power-section" style="display: none;">
+                        <h3><i class="fas fa-bolt"></i> Most Powerful Feature</h3>
+                        <p id="pm-power-text" style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;"></p>
+                    </div>
+
+                    <div class="pm-section" id="pm-issues-section" style="display: none;">
+                        <h3><i class="fas fa-tools"></i> Challenges & Solutions</h3>
+                        <p id="pm-issues-text" style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;"></p>
+                    </div>
+
+                    <div class="pm-section">
+                        <h3><i class="fas fa-star"></i> Core Features</h3>
+                        <ul id="pm-features"></ul>
+                    </div>
+                    <div class="pm-section">
+                        <h3><i class="fas fa-trophy"></i> Achievements</h3>
+                        <ul id="pm-achievements"></ul>
+                    </div>
+                </div>
+
+                <!-- Call to action links -->
+                <div class="pm-links" id="pm-cta-links">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Expansion Lightbox -->
+    <div id="image-lightbox" class="modal-overlay hidden" style="z-index: 99999; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.9); cursor: zoom-out;" onclick="if(event.target === this) this.classList.add('hidden');">
+        <img id="lightbox-img" src="" alt="Expanded Image" style="max-width: 95vw; max-height: 95vh; border-radius: 8px; box-shadow: 0 0 30px rgba(0,0,0,0.8); object-fit: contain; cursor: zoom-in; transition: transform 0.3s ease;" onclick="this.style.transform = this.style.transform === 'scale(1.5)' ? 'scale(1)' : 'scale(1.5)';">
+    </div>
+
+    <script>
+        function openPortfolioModal(projectId) {
+            
+        const dataMap = {
+            'mozodi': {
+                title: 'Mozodi',
+                desc: 'A massive scale multi-tenant B2C e-commerce platform processing dynamic white-label applications rapidly from a unified codebase.',
+                tags: '<span class="project-tag shop">E-commerce</span> <span class="project-tag architecture">Melos</span>',
+                images: ["assets/mozodi_1.png", "assets/mozodi_2.png", "assets/mozodi_3.png"],
+                powerFeature: 'Sentry Replay-Integrated Dynamic White-Label Engine: Powers hundreds of bespoke branded applications from a singular Melos monorepo by intelligently routing and morphing the UI layer based on the tenant, while maintaining a single cohesive codebase.',
+                issuesSolved: 'Managing diverse codebase forks for individual white-label clients led to massive technical debt and upgrade paralysis. I redesigned the core engine into decoupled feature packages utilizing Melos, achieving an unprecedented 50% code-reuse and fully unified versioning.',
+                features: [
+                    'Multi-brand dynamic UI morphing using targeted white-label routing',
+                    'Deep session analytics and crash forensics via Sentry Replay Integration',
+                    'Highly decoupled component packaging through Melos workspace orchestration',
+                    'Lightning-fast continuous deployment pipelines'
+                ],
+                achievements: [
+                    'Supported over 5,400+ active product SKUs concurrently with negligible latency',
+                    'Eliminated 90% of boilerplate work for onboarding customized client platforms',
+                    'Saved countless developer hours via singular codebase management'
+                ],
+                links: '<a href="https://play.google.com/store/apps/details?id=com.mozodi.mozodi" target="_blank" class="btn btn-secondary"><i class="fab fa-google-play"></i> Play Store</a>' +
+                       '<a href="https://apps.apple.com/eg/app/mozodi/id6739187377" target="_blank" class="btn btn-secondary"><i class="fab fa-apple"></i> App Store</a>'
+            },
+            'bravo': {
+                title: 'Bravo',
+                desc: 'Financial orchestration SDK processing $5M+ with 384K+ active wallets. Zero-trust architecture with end-to-end encryption based in DIFC.',
+                tags: '<span class="project-tag payment">Payments</span> <span class="project-tag hardware">Fintech</span>',
+                images: ["assets/bravo_1.png", "assets/bravo_2.png", "assets/bravo_3.png"],
+                powerFeature: 'Zero-Trust Financial Data Orchestration: Integrates MVI-driven Riverpod architecture with hardened biometric app-unlocks and AES-GCM encrypted persistence, ensuring secure monetary transactions in alignment with PCI-DSS requirements.',
+                issuesSolved: 'Processing high-volume financial traffic securely required mitigating heavy runtime overheads and memory leakage. I spearheaded the migration to an MVI + RxDart reactive paradigm and optimized the Spring Boot backend queries with Redis caching, crushing the app crash rate down to 0.01%.',
+                features: [
+                    'Hardened in-memory encryption matching strictly PCI-DSS parameters', 
+                    'MVI Reactive Architecture using deeply scalable Kotlin SDK integrations', 
+                    'Zero-trust architecture utilizing Biometric Application Unlock + PIN Obfuscation',
+                    'Automated remote patching infrastructure via Shorebird API'
+                ],
+                achievements: [
+                    'Seamlessly sustained $5M+ in dynamic monthly transaction volumes', 
+                    'Maintained 384K+ highly active user wallets securely', 
+                    '99.9% uptime with robust Redis caching layer',
+                    'Decreased app crash rate to 0.01% eliminating memory leaks',
+                    'Top 10 Finance app in the region with mainstreamed Shorebird OTA updates'
+                ],
+               links: '<a href="https://play.google.com/store/apps/details?id=istinara.bravocash" target="_blank" class="btn btn-secondary"><i class="fab fa-google-play"></i> Play Store</a>' +
+                       '<a href="https://apps.apple.com/eg/app/bravo-sudan-pay/id1665773476" target="_blank" class="btn btn-secondary"><i class="fab fa-apple"></i> App Store</a>'
+            },
+            'madaraskom': {
+                title: 'Your Schools مدارسكم',
+                desc: 'A premier educational platform for the Middle East that connects students, parents, and teachers. It provides a massive e-learning ecosystem featuring live interactive classrooms, seamless assignment tracking, rich multimedia lessons, and advanced communication tools to streamline the educational journey.',
+                tags: '<span class="project-tag framework">Flutter</span> <span class="project-tag backend">Node.js</span> <span class="project-tag architecture">Zoom SDK</span> <span class="project-tag performance">WebRTC</span> <span class="project-tag database">Firebase</span>',
+                images: [
+                    "images/portfolio/madarskom/screen1.jpg",
+                    "images/portfolio/madarskom/screen2.jpg",
+                    "images/portfolio/madarskom/screen3.jpg"
+                ],
+                powerFeature: 'Interactive Live Classrooms with AES-encrypted Offline DRM: Students can participate securely in real-time high-definition video classrooms via Zoom SDK integration, while recorded sessions are encrypted securely (DRM) to allow offline viewing without piracy risks.',
+                issuesSolved: 'Bandwidth constraints and high piracy risks in educational video streaming. I solved this by implementing an adaptive bitrate streaming architecture combined with a custom AES-256 encrypted local video container. This ensured videos could be pre-downloaded on limited bandwidth connections and played offline safely inside the app, without any risk of being extracted or pirated.',
+                features: [
+                    'Hardware-accelerated live video classrooms (Zoom SDK)',
+                    'Custom AES-Encrypted Offline Video DRM playback',
+                    'Real-time student chat, grading, and engagement tracking',
+                    'Interactive quizzes, assignments, and live polling',
+                    'Dedicated Parent Portal for performance monitoring'
+                ],
+                achievements: [
+                    'Top-ranking education app in the region supporting thousands of active students',
+                    'Achieved 99.8% Video stream stability across challenging network constraints',
+                    'Successfully protected 100% of premium educational video content from piracy',
+                    'Scaled to support hundreds of concurrent interactive live users per classroom'
+                ],
+                links: '<a href="https://apps.apple.com/eg/app/your-schools-%D9%85%D8%AF%D8%A7%D8%B1%D8%B3%D9%83%D9%85/id1459034556" target="_blank" class="btn btn-secondary"><i class="fab fa-apple"></i> App Store</a>'
+            },
+            'alahram': {
+                title: 'Al-Ahram',
+                desc: 'Offline-first mobile application featuring complex Arabic RTL dynamic PDF generation and deep DDD Riverpod architecture.',
+                tags: '<span class="project-tag payment">Contract</span> <span class="project-tag shop">E-commerce</span>',
+                images: ["assets/alahram_1.png", "assets/alahram_2.png", "assets/alahram_3.png"],
+                powerFeature: 'Complete Offline-First Architecture with Drift SQL: The app dynamically synchronizes domain data continuously so field operators can generate sophisticated RTL Arabic PDF contracts offline without experiencing latency, re-syncing implicitly upon reconnection.',
+                issuesSolved: 'Poor rural network coverage caused catastrophic data loss during on-site business operations. I solved this by designing an advanced offline-first caching layer backed by Drift SQLite and Riverpod, ensuring bulletproof local operations with automated conflict resolution through Melos-separated DDD packages.',
+                features: [
+                    'Melos monorepo orchestrating 10+ shared Flutter packages safely',
+                    'Strict Clean Architecture & Domain-Driven Design execution',
+                    'Offline-first Database sync via Drift (SQLite)',
+                    'Continuous Integration through automated workflows'
+                ],
+                achievements: [
+                    'Accelerated app startup metrics by 40% using isolated dependencies',
+                    'Achieved 100% stable offline capability for critical B2B deployments',
+                    'Reduced overall codebase complexity with modular Riverpod encapsulation',
+                    'Seamless offline/online dynamic Arabic PDF generator system'
+                ],
+                links: '<a href="https://play.google.com/store/apps/details?id=com.eg_alahram.alahram" target="_blank" class="btn btn-secondary"><i class="fab fa-google-play"></i> Play Store</a>' +
+                       '<a href="https://apps.apple.com/us/app/al-ahram-finishing-decor/id6502847526" target="_blank" class="btn btn-secondary"><i class="fab fa-apple"></i> App Store</a>'
+            },
+            'cardhub': {
+                title: 'card_hub',
+                desc: 'A highly customizable animated 3D credit card widget for Flutter with automatic card network detection and input validation.',
+                tags: '<span class="project-tag oss">Open Source</span> <span class="project-tag flutter">Flutter</span>',
+                images: [],
+                video: 'images/portfolio/card_hub.mp4',
+                powerFeature: 'Customizable 3D Card Engine with Built-in Ecosystem Emulation: Delivers sophisticated hardware-accelerated animations and built-in algorithmic detection for Visa, MasterCard, and Amex seamlessly out of the box.',
+                issuesSolved: 'Publishing an Open Source package that serves thousands requires immaculate abstraction. I ensured the UI rendering remained absolutely decoupled from the state logic to provide users total plug-and-play adaptability across diverse platforms with strict Null-Safety enforcement.',
+                features: [
+                    'Automatic Card-Network detection (Visa, MasterCard, Amex)',
+                    '100% decoupled logic from UI for developer freedom',
+                    'Fully Null-safe Dart code enforcing strong compile-time checks',
+                    'Automated deployment checks powered by GitHub Actions'
+                ],
+                achievements: [
+                    'Secured 98% Test Coverage establishing an unbreakable package core',
+                    'Featured in top Flutter resources accumulating 150+ Stars',
+                    'Successfully deployed into production by thousands of other developers'
+                ],
+                links: '<a href="https://pub.dev/packages/card_hub" target="_blank" class="btn btn-secondary">pub.dev</a>' +
+                       '<a href="https://github.com/Abouassi98/card_hub" target="_blank" class="btn btn-secondary"><i class="fab fa-github"></i> GitHub</a>'
+            }
+        };
+
+        const data = dataMap[projectId];
+        if (!data) return;
+
+        document.getElementById('pm-title').innerText = data.title;
+        document.getElementById('pm-desc').innerText = data.desc;
+        document.getElementById('pm-tags').innerHTML = data.tags;
+        
+        const gallery = document.getElementById('pm-gallery');
+        const screenshotsSection = document.querySelector('.pm-screenshots');
+        if (data.video) {
+            screenshotsSection.style.display = 'block';
+            gallery.innerHTML = `<video src="${data.video}" controls autoplay muted loop style="width: 100%; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);"></video>`;
+        } else if (data.images && data.images.length > 0) {
+            screenshotsSection.style.display = 'block';
+            gallery.innerHTML = data.images.map(img => `<img src="${img}" alt="Screenshot" onclick="document.getElementById('lightbox-img').style.transform='scale(1)'; document.getElementById('lightbox-img').src=this.src; document.getElementById('image-lightbox').classList.remove('hidden');" style="cursor: zoom-in;" draggable="false" />`).join('');
+        } else {
+            screenshotsSection.style.display = 'none';
+            gallery.innerHTML = '';
+        }
+        
+        // Horizontal drag-to-scroll feature
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        
+        gallery.onmousedown = (e) => {
+            isDown = true;
+            gallery.style.cursor = 'grabbing';
+            startX = e.pageX - gallery.offsetLeft;
+            scrollLeft = gallery.scrollLeft;
+        };
+        gallery.onmouseleave = () => {
+            isDown = false;
+            gallery.style.cursor = 'grab';
+        };
+        gallery.onmouseup = () => {
+            isDown = false;
+            gallery.style.cursor = 'grab';
+        };
+        gallery.onmousemove = (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - gallery.offsetLeft;
+            const walk = (x - startX) * 2;
+            gallery.scrollLeft = scrollLeft - walk;
+        };
+        
+        const featuresEl = document.getElementById('pm-features');
+        featuresEl.innerHTML = data.features.map(f => `<li>${f}</li>`).join('');
+        
+        const powerSection = document.getElementById('pm-power-section');
+        const powerText = document.getElementById('pm-power-text');
+        if (data.powerFeature) {
+            powerText.innerText = data.powerFeature;
+            powerSection.style.display = 'block';
+        } else {
+            powerSection.style.display = 'none';
+        }
+
+        const issuesSection = document.getElementById('pm-issues-section');
+        const issuesText = document.getElementById('pm-issues-text');
+        if (data.issuesSolved) {
+            issuesText.innerText = data.issuesSolved;
+            issuesSection.style.display = 'block';
+        } else {
+            issuesSection.style.display = 'none';
+        }
+
+        const achievementsEl = document.getElementById('pm-achievements');
+        achievementsEl.innerHTML = data.achievements.map(a => `<li>${a}</li>`).join('');
+        
+        document.getElementById('pm-cta-links').innerHTML = data.links;
+
+        document.getElementById('portfolio-modal').classList.remove('hidden');
+        
+        // Reset scroll position to top when opening a new modal
+        const modalBody = document.querySelector('.portfolio-modal-body');
+        if (modalBody) {
+            modalBody.scrollTop = 0;
+        }
+        }
+        
+        // Setup close buttons
+        document.getElementById('btn-close-portfolio-modal').addEventListener('click', () => {
+            document.getElementById('portfolio-modal').classList.add('hidden');
+        });
+        document.getElementById('portfolio-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'portfolio-modal') {
+                document.getElementById('portfolio-modal').classList.add('hidden');
+            }
+        });
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.bento-card[data-project]');
+            cards.forEach(card => {
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', () => {
+                    openPortfolioModal(card.getAttribute('data-project'));
+                });
+
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    card.style.setProperty('--mouse-x', `${x}px`);
+                    card.style.setProperty('--mouse-y', `${y}px`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
