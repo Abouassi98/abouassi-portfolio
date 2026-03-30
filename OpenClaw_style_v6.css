@@ -58,7 +58,6 @@
 
 html {
   overflow-y:      scroll;
-  overflow-x:      clip;
   scroll-behavior: smooth;
 }
 
@@ -68,7 +67,6 @@ body {
   font-family:             var(--font-body);
   margin:                  0;
   min-height:              100vh;
-  overflow-x:              clip;
   -webkit-font-smoothing:  antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height:             1.5;
@@ -134,18 +132,12 @@ main {
 }
 
 /* ============================================================
-   HEADER  — [FIX-1] NO LAYOUT JUMP ON SCROLL
+   HEADER  — COMPACT STICKY TABS BAR
    ============================================================
-   ROOT CAUSE of snap-back bug:
-     Old code used `display:none` on .header-content and
-     .search-nav when scrolled. That collapsed the header's
-     height mid-scroll, which re-triggered the scroll
-     threshold, which toggled the class off again — feedback loop.
-
-   THE FIX:
-     Use `opacity: 0` + `visibility: hidden` instead.
-     The elements become invisible but their layout space is
-     fully preserved. Header height never changes → no jump.
+   Architecture: <header> contains ONLY .header-content + .tabs-nav.
+   .search-nav (filters) lives in <main> and scrolls with content.
+   When scrolled past 50px, .header-content collapses to 0 height,
+   leaving only the thin tab strip (~45px) stuck at the top.
    ============================================================ */
 header {
   position:                sticky;
@@ -158,48 +150,32 @@ header {
   margin-left:             -2rem;
   margin-right:            -2rem;
   padding:                 1.2rem 2rem 0;
-  margin-bottom:           2rem;
   /* Only animate cosmetic properties — never touch geometry */
   transition:              background 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Scrolled: compact dark bar — cosmetic only, NO geometry changes */
 header.scrolled {
   background: rgba(2, 6, 23, 0.98);
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
-  /* NO height, padding, or display changes here */
 }
 
-/* Default state: visible, transitions ready */
-header .header-content,
-header .search-nav {
-  opacity:    1;
-  visibility: visible;
-  transition: opacity 0.25s ease, visibility 0.25s ease;
-}
-
-/* Scrolled: slightly fade out but keep visible to avoid 'messed up' feeling */
+/* Header content (logo + stats) — hidden when scrolled
+   CRITICAL: Do NOT transition geometry (height/max-height/margin).
+   That causes a scroll→reflow→scroll feedback loop = flicker.
+   display:none is instant — no animation means no reflow loop. */
 header.scrolled .header-content {
-  opacity:        0.4;
-  height:         0;
-  margin-bottom:  0;
-  overflow:       hidden;
-  transition:     all 0.3s ease;
-}
-
-header.scrolled .search-nav {
-  opacity:        1;
-  visibility:     visible;
+  display: none;
 }
 
 /* Tab bar always stays fully visible */
-header .tabs-nav,
-header.scrolled .tabs-nav {
+header .tabs-nav {
   opacity:    1 !important;
   visibility: visible !important;
 }
 
 @media (max-width: 768px) {
-  header { margin-left: -12px; margin-right: -12px; padding: 0.8rem 12px 0; margin-bottom: 1rem; }
+  header { margin-left: -12px; margin-right: -12px; padding: 0.8rem 12px 0; }
 }
 
 /* ── Header content row ─────────────────────────────────── */
@@ -342,33 +318,20 @@ header.scrolled .tabs-nav {
 }
 
 /* ============================================================
-   TABS NAV — horizontal scroll + drag cursor hint
+   TABS NAV — regular scroll 
    ============================================================ */
 .tabs-nav {
   display:         flex;
   gap:             2px;
   overflow-x:      auto;
-  scrollbar-width: none;
   flex-wrap:       nowrap;
   white-space:     nowrap;
+  width:           100%;
+  min-width:       0;
   padding-bottom:  0;
   margin-bottom:   0;
   position:        relative;
-  cursor:          grab;
-  -webkit-mask-image: linear-gradient(to right, transparent 0px, black 40px, black calc(100% - 40px), transparent 100%);
-  mask-image:         linear-gradient(to right, transparent 0px, black 40px, black calc(100% - 40px), transparent 100%);
 }
-
-.tabs-nav.at-start {
-  -webkit-mask-image: linear-gradient(to right, black calc(100% - 40px), transparent 100%);
-  mask-image:         linear-gradient(to right, black calc(100% - 40px), transparent 100%);
-}
-.tabs-nav.at-end {
-  -webkit-mask-image: linear-gradient(to right, transparent 0px, black 40px, black 100%);
-  mask-image:         linear-gradient(to right, transparent 0px, black 40px, black 100%);
-}
-.tabs-nav.at-start.at-end { -webkit-mask-image: none; mask-image: none; }
-.tabs-nav::-webkit-scrollbar { display: none; }
 
 /* Scroll progress bar */
 .tabs-nav::after {
@@ -404,10 +367,22 @@ header.scrolled .tabs-nav {
 @media (max-width: 768px) { .nav-tab { padding: 0.75rem 1rem; font-size: 0.85rem; } }
 
 /* ============================================================
-   SEARCH NAV
+   SEARCH / FILTER PANEL — lives in <main>, scrolls with content
    ============================================================ */
-.search-nav { display: flex; flex-direction: column; gap: 0.8rem; padding: 1rem 0; border-top: 1px solid var(--border); }
-.filter-group { display: flex; flex-direction: column; gap: 0.4rem; }
+.search-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  overflow: hidden; /* contain child horizontal scroll within rounded corners */
+}
+.filter-group { display: flex; flex-direction: column; gap: 0.4rem; min-width: 0; /* allow flex shrink for child overflow-x scroll */ }
 .filter-group-label { display: flex; align-items: center; justify-content: space-between; font-size: 0.68rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; opacity: 0.8; }
 
 .search-box { position: relative; width: 100%; }
@@ -417,8 +392,7 @@ header.scrolled .tabs-nav {
 .search-icon { position: absolute; left: 0.9rem; top: 50%; transform: translateY(-50%); color: var(--text-secondary); pointer-events: none; font-size: 0.95rem; }
 
 /* Filter pills — cursor:grab signals drag-to-scroll to user */
-.filter-pills { display: flex; gap: 0.5rem; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; cursor: grab; }
-.filter-pills::-webkit-scrollbar { display: none; }
+.filter-pills { display: flex; gap: 0.5rem; flex-wrap: nowrap; overflow-x: auto; width: 100%; min-width: 0; padding-bottom: 4px; }
 
 .filter-pill {
   display: flex; align-items: center; gap: 5px; padding: 0.35rem 0.9rem;
@@ -476,8 +450,8 @@ header.scrolled .tabs-nav {
   padding:          1.4rem;
   display:          flex;
   flex-direction:   column;
+  min-width:        0;
   gap:              0.8rem;
-  height:           100%;
   position:         relative;
   overflow:         hidden;
   contain:          style;
@@ -522,7 +496,7 @@ header.scrolled .tabs-nav {
 .job-meta      { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .meta-pill     { font-size: 0.7rem; background: rgba(255,255,255,0.04); padding: 3px 8px; border-radius: 2rem; color: var(--text-secondary); border: 1px solid rgba(255,255,255,0.05); white-space: nowrap; }
 
-.job-reasoning-box { background: rgba(var(--accent-rgb),0.05); border-left: 3px solid var(--accent); padding: 8px 12px; border-radius: 6px; font-size: 0.85rem; line-height: 1.4; color: var(--text-secondary); }
+.job-reasoning-box { background: rgba(var(--accent-rgb),0.05); border-left: 3px solid var(--accent); padding: 8px 12px; border-radius: 6px; font-size: 0.85rem; line-height: 1.4; color: var(--text-secondary); max-height: 120px; overflow-y: auto; scrollbar-width: thin; }
 .job-reasoning-box b { color: var(--accent-primary); font-weight: 600; }
 .job-reasoning-box p { margin: 0; }
 
@@ -1650,7 +1624,7 @@ footer  { text-align: center; padding: 1.5rem 0; margin-top: 2rem; border-top: 1
 }
 /* === END KANBAN PIPELINE === */
 
-/* === DRAG-SCROLL ENHANCEMENTS === */
+/* === DRAG-SCROLL ENHANCEMENTS (cleaned up) === */
 .tabs-nav,
 .filter-pills {
   -webkit-overflow-scrolling: touch;
@@ -1658,18 +1632,9 @@ footer  { text-align: center; padding: 1.5rem 0; margin-top: 2rem; border-top: 1
   will-change: scroll-position;
   transform: translateZ(0);
   backface-visibility: hidden;
-  cursor: grab;
   user-select: auto;
   -webkit-user-select: auto;
   -webkit-tap-highlight-color: transparent;
-}
-
-.tabs-nav.is-dragging,
-.filter-pills.is-dragging {
-  cursor: grabbing !important;
-  user-select: none !important;
-  -webkit-user-select: none !important;
-  scroll-snap-type: none;
 }
 
 .pitch-textarea {
@@ -3035,18 +3000,9 @@ kbd {
 
 @media (max-width: 1024px) {
     .bento-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .bento-card.bento-large, .bento-card.bento-wide {
-        grid-column: span 2 !important;
-    }
-}
-
-@media (max-width: 768px) {
-    .bento-grid {
         grid-template-columns: 1fr;
     }
-    .bento-card {
+    .bento-card, .bento-card.bento-large, .bento-card.bento-wide, .bento-card.bento-tall, .bento-card.bento-square {
         grid-column: span 1 !important;
         grid-row: span 1 !important;
     }
@@ -3063,6 +3019,7 @@ kbd {
     flex-direction: column;
     justify-content: space-between;
     overflow: hidden;
+    min-width: 0; /* Fix CSS Grid blowout from large child media */
     backdrop-filter: var(--card-blur);
     -webkit-backdrop-filter: var(--card-blur);
     cursor: pointer;
@@ -3335,4 +3292,56 @@ kbd {
     left: 0;
     color: var(--accent);
     font-weight: bold;
+}
+
+/* ====== PORTFOLIO MOBILE RESPONSIVENESS PATCH ====== */
+@media (max-width: 768px) {
+    /* Main grid wrap */
+    .bento-content.flex-row {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 1.5rem !important;
+    }
+    /* Modal sizing */
+    .portfolio-modal-content {
+        width: 95% !important;
+        margin-top: 2vh !important;
+        max-height: 96vh !important;
+    }
+    .portfolio-modal-content .modal-header {
+        padding: 1.5rem 1.5rem 1rem !important;
+    }
+    .portfolio-modal-content .modal-header h2 {
+        font-size: 1.5rem !important;
+    }
+    .portfolio-modal-body {
+        padding: 0 1.5rem 1.5rem !important;
+    }
+    /* Inner grid breakdown */
+    .pm-details-grid {
+        grid-template-columns: 1fr !important;
+        padding: 1.5rem !important;
+        gap: 1.5rem !important;
+    }
+    .pm-gallery img {
+        height: 250px !important;
+    }
+}
+
+/* ====== CSS GRID SAFEGUARDS ====== */
+.bento-grid {
+    grid-auto-flow: dense !important;
+}
+
+.bento-art video {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: inherit;
+    opacity: 0.6;
+    transition: transform 0.6s var(--apple-ease);
+}
+.bento-card:hover .bento-art video {
+    opacity: 0.45;
+    transform: scale(1.04);
 }
