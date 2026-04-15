@@ -10,7 +10,11 @@
     <meta property="og:title" content="Mohamed Abouassi — Senior Flutter Engineer">
     <meta property="og:description" content="Engineering production-grade Flutter mobile experiences at scale.">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://abouassi98.github.io/abouassi-portfolio/">
+    <meta property="og:image" content="https://abouassi98.github.io/abouassi-portfolio/images/portfolio/mozodi_clean.png">
     <meta name="theme-color" content="#030014">
+    <link rel="canonical" href="https://abouassi98.github.io/abouassi-portfolio/">
+    <link rel="icon" type="image/png" href="images/portfolio/mozodi_clean.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -308,16 +312,16 @@
         <p class="contact-desc reveal-up">I'm always open to discussing new projects, creative ideas, or opportunities to be part of engineering something great.</p>
 
         <div class="social-links reveal-up stagger-2">
-            <a href="https://github.com/Abouassi98" target="_blank" class="social-link" id="link-github">
+            <a href="https://github.com/Abouassi98" target="_blank" rel="noopener noreferrer" class="social-link" id="link-github">
                 <i class="fab fa-github"></i><span>GitHub</span>
             </a>
-            <a href="https://linkedin.com/in/mohamed-abouassi" target="_blank" class="social-link" id="link-linkedin">
+            <a href="https://linkedin.com/in/mohamed-abouassi" target="_blank" rel="noopener noreferrer" class="social-link" id="link-linkedin">
                 <i class="fab fa-linkedin"></i><span>LinkedIn</span>
             </a>
             <a href="mailto:mo.abouassi98@gmail.com" class="social-link" id="link-email">
                 <i class="fas fa-envelope"></i><span>Email</span>
             </a>
-            <a href="https://pub.dev/publishers/abouassi.dev/packages" target="_blank" class="social-link" id="link-pubdev">
+            <a href="https://pub.dev/publishers/abouassi.dev/packages" target="_blank" rel="noopener noreferrer" class="social-link" id="link-pubdev">
                 <i class="fas fa-cube"></i><span>Pub.dev</span>
             </a>
         </div>
@@ -597,6 +601,18 @@
         createParticles();
         draw();
 
+        // Pause particles when hero is off-screen for performance
+        const heroObs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    cancelAnimationFrame(raf);
+                } else {
+                    raf = requestAnimationFrame(draw);
+                }
+            });
+        }, { threshold: 0 });
+        heroObs.observe(canvas.closest('#hero') || canvas);
+
         window.addEventListener('resize', () => { resize(); createParticles(); });
         canvas.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
         canvas.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
@@ -799,7 +815,7 @@
             // Links
             document.getElementById('modal-links').innerHTML =
                 data.links.map(l =>
-                    `<a href="${l.url}" target="_blank" class="modal-link"><i class="${l.icon}"></i>${l.label}</a>`
+                    `<a href="${l.url}" target="_blank" rel="noopener noreferrer" class="modal-link"><i class="${l.icon}"></i>${l.label}</a>`
                 ).join('');
 
             // Show
@@ -860,6 +876,11 @@
         });
         img.addEventListener('click', () => {
             img.style.transform = img.style.transform === 'scale(1.5)' ? 'scale(1)' : 'scale(1.5)';
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                lightbox.classList.remove('active');
+            }
         });
     })();
 
