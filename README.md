@@ -8,7 +8,7 @@ site that I would be comfortable having someone read line by line.
 ```bash
 npm ci
 npm run dev        # http://localhost:5173/abouassi-portfolio/
-npm test           # 91 tests
+npm test           # 95 tests
 npm run lint       # eslint, type-aware
 npm run typecheck  # tsc -b
 npm run build
@@ -86,8 +86,12 @@ pass:
 - Each project name sits in a real `<h3>` wrapping the toggle button, not in a
   button that happens to look like a heading.
 - Motion is behind `prefers-reduced-motion`, including smooth scrolling. The
-  scroll-reveal degrades to "visible" when `IntersectionObserver` is missing —
-  an enhancement that hides content on failure is not an enhancement.
+  scroll-reveal degrades to "visible" when `IntersectionObserver` is missing,
+  **and** on a timer if the observer exists but never fires. That second case is
+  real: a background tab receives no intersection callbacks at all, so without
+  it a crawler running JavaScript on a hidden page would index a blank
+  document. An enhancement that hides content on failure is not an
+  enhancement.
 
 ## Arabic and RTL
 
@@ -141,6 +145,9 @@ handshake and a stylesheet round trip before any text can paint.
 
 Most of the win is (1): removing the render-blocking third-party request is
 what moved FCP by 1.7 s.
+
+The live site, measured over the network rather than against `vite preview`,
+scores **99 / 100 / 100 / 100**.
 
 Build output: **182 kB JS (58.5 kB gzip)**, 17 kB CSS (4.1 kB gzip), 32 kB font.
 Test coverage: 98% of statements.
