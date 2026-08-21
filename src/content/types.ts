@@ -55,7 +55,9 @@ export type ProjectId =
   | 'daftarpay'
   | 'mycity'
   | 'mozodi'
-  | 'alahram';
+  | 'alahram'
+  | 'ledger-service'
+  | 'portfolio';
 
 export interface Project {
   readonly id: ProjectId;

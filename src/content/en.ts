@@ -182,6 +182,43 @@ export const en: SiteContent = {
         { label: 'Google Play', href: 'https://play.google.com/store/apps/details?id=com.eg_alahram.alahram' },
       ],
     },
+    {
+      id: 'ledger-service',
+      name: 'ledger-service — double-entry ledger',
+      role: 'Author · personal project',
+      period: '2026',
+      domain: 'Open source · Java',
+      summary:
+        'A small, complete payments-shaped service: double-entry ledger, idempotent transfers, append-only journal. Written as a work sample, because the Spring work I do professionally sits in private client repositories.',
+      points: [
+        'A journal entry balances per currency, checked in the constructor — an unbalanced entry cannot be built, not merely cannot be saved.',
+        'Money is BigDecimal with the scale pinned to the currency and rounding refused, so a stray fraction of a cent raises rather than disappears.',
+        'Idempotent transfers: a key plus a request fingerprint, replay returns the original entry, a changed body is refused rather than replayed.',
+        'Row locks taken in id order, balance read after the lock. Twenty threads released together prove no overspend and no deadlock.',
+        'The journal is append-only at the database level; corrections are compensating entries, so the trail shows the error and the fix.',
+        '69 tests, the integration ones on Testcontainers PostgreSQL rather than an in-memory stand-in.',
+      ],
+      tags: ['Java 21', 'Spring Boot 3', 'PostgreSQL', 'Testcontainers'],
+      links: [{ label: 'GitHub', href: 'https://github.com/Abouassi98/ledger-service' }],
+    },
+    {
+      id: 'portfolio',
+      name: 'This site',
+      role: 'Author · personal project',
+      period: '2026',
+      domain: 'Open source · React & TypeScript',
+      summary:
+        'The site you are reading, written as a work sample in the stack it claims. The content is bound to a fact ledger, and two of that ledger\u2019s rules are enforced by the type system and the test suite rather than by review.',
+      points: [
+        'A discriminated union makes a borrowed-scale metric fail to compile unless it names the employer whose scale it borrows.',
+        'A test fails the build if a retired claim or an unevidenced skill reappears in either locale, or if the two locales drift apart.',
+        'Arabic and English with a persisted direction switch applied before first paint, logical properties throughout, and bidi isolation on numerals.',
+        'Tabs and disclosures follow the WAI-ARIA patterns; arrow keys follow visual order, so they run backwards in Arabic on purpose.',
+        'Lighthouse 100 across the board after replacing two render-blocking font families with one self-hosted variable font.',
+      ],
+      tags: ['React', 'TypeScript', 'Vitest', 'Accessibility', 'RTL'],
+      links: [{ label: 'GitHub', href: 'https://github.com/Abouassi98/abouassi-portfolio' }],
+    },
   ],
 
   experience: [
