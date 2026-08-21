@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mohamed Abouassi — Senior Engineer · Mobile, Web &amp; Backend</title>
+    <meta name="description" content="Senior engineer in Riyadh. Payment SDKs and wallets on Flutter and Android, React/TypeScript consoles, and Java/Spring service work. Nearly 6 years, regulated fintech." />
+    <meta property="og:title" content="Mohamed Abouassi — Senior Engineer" />
+    <meta property="og:description" content="Mobile, web and backend engineering for regulated payments." />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#05060a" />
+    <link rel="icon" type="image/svg+xml" href="/abouassi-portfolio/favicon.svg" />
+
+    <!--
+      Self-hosted, so there is no third-party connection on the critical path.
+      One variable file covers weights 300–800; the previous build fetched six
+      static weights plus a second family. See README § Performance.
+    -->
+    <link
+      rel="preload"
+      href="/abouassi-portfolio/fonts/outfit-latin-var.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <!--
+      Direction is applied before first paint. React sets it too, but by then
+      the first frame has already been laid out — an Arabic visitor would see
+      one frame of left-to-right layout and a visible reflow.
+    -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('abouassi-portfolio.locale');
+          var locale =
+            stored === 'en' || stored === 'ar'
+              ? stored
+              : (navigator.language || '').toLowerCase().indexOf('ar') === 0
+                ? 'ar'
+                : 'en';
+          var root = document.documentElement;
+          root.setAttribute('lang', locale);
+          root.setAttribute('dir', locale === 'ar' ? 'rtl' : 'ltr');
+        } catch (e) {
+          /* Storage blocked; the default in the markup stands. */
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
