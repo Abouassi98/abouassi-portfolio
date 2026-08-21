@@ -1,0 +1,11 @@
+node_modules
+dist
+coverage
+.DS_Store
+*.local
+
+# Local working notes. BRIEF_FOR_CLAUDE_CODE.md names client repositories and
+# internal systems; it is CLIENT_SENSITIVE and must not reach a public remote.
+BRIEF_FOR_CLAUDE_CODE.md
+start_here.command
+tsconfig.tsbuildinfo
